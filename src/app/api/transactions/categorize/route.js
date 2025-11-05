@@ -5,9 +5,7 @@ export async function POST(req) {
     const { description } = await req.json();
 
     if (!description) {
-      return new Response(JSON.stringify({ error: "Description required" }), {
-        status: 400,
-      });
+      return new Response(JSON.stringify({ error: "Description required" }), { status: 400 });
     }
 
     const category = await categorizeTransaction(description);
@@ -15,8 +13,6 @@ export async function POST(req) {
     return new Response(JSON.stringify({ category }), { status: 200 });
   } catch (error) {
     console.error("Categorization Error:", error);
-    return new Response(JSON.stringify({ error: "Failed to categorize" }), {
-      status: 500,
-    });
+    return new Response(JSON.stringify({ error: "Failed to categorize" }), { status: 500 });
   }
 }
