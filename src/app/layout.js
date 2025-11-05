@@ -21,6 +21,7 @@ export default function RootLayout({ children }) {
         <nav className="bg-white shadow-sm p-4 flex justify-between items-center">
           <h1 className="font-bold text-lg text-blue-600">SpendWise</h1>
           <div className="space-x-4">
+            <Link href="/" className="hover:underline">Home</Link>
             <Link href="/login" className="hover:underline">Login</Link>
             <Link href="/signup" className="hover:underline">Signup</Link>
             <Link href="/dashboard" className="hover:underline">Dashboard</Link>

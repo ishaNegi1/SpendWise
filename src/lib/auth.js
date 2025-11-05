@@ -6,15 +6,25 @@ const JWT_EXPIRES_IN = "7d";
 
 export function createToken(user) {
   return jwt.sign(
-    { id: user._id, email: user.email },
+    { _id: user._id, email: user.email },
     JWT_SECRET,
     { expiresIn: JWT_EXPIRES_IN }
   );
 }
 
-export function verifyToken(token) {
+export async function verifyToken(req) {
   try {
-    return jwt.verify(token, JWT_SECRET);
+    const cookieHeader = req.headers.get("cookie") || "";
+    const parsedCookies = cookie.parse(cookieHeader);
+    const token = parsedCookies.token;
+    if (!token) return null;
+
+    return new Promise((resolve) => {
+      jwt.verify(token, JWT_SECRET, (err, decoded) => {
+        if (err) return resolve(null);
+        resolve(decoded);
+      });
+    });
   } catch {
     return null;
   }
