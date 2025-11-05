@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { connectDB } from "@/lib/dbConfig";
-import User from "@/models/user";
+import User from "@/models/User";
 import { createToken, setTokenCookie } from "@/lib/auth";
 
 export async function POST(req) {

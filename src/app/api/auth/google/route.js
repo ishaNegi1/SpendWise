@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/dbConfig";
-import User from "@/models/user";
+import User from "@/models/User";
 import { verifyGoogleToken } from "@/lib/googleAuth";
 import { createToken, setTokenCookie } from "@/lib/auth";
 
