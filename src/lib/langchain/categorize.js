@@ -1,5 +1,6 @@
-import { HuggingFaceInference } from "@langchain/community/llms/huggingface";
-import { PromptTemplate, LLMChain } from "@langchain/core";
+import { HuggingFaceInference } from "langchain/llms/hf";
+import { LLMChain } from "langchain/chains";
+import { PromptTemplate } from "langchain/prompts";
 
 export async function categorizeTransaction(description) {
   const model = new HuggingFaceInference({
