@@ -35,7 +35,7 @@ export default function DashboardPage() {
           </button>
         </div>
       ) : (
-        <p>Loading user...</p>
+        <p>Signup or Login to access dashboard</p>
       )}
     </div>
   );

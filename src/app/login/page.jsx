@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
@@ -26,6 +26,34 @@ export default function LoginPage() {
     }
   };
 
+  useEffect(() => {
+    if (window.google) {
+      google.accounts.id.initialize({
+        client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+        callback: handleGoogleResponse,
+      });
+
+      google.accounts.id.renderButton(
+        document.getElementById("googleButton"),
+        { theme: "outline", size: "large", width: "250" }
+      );
+    }
+  }, []);
+
+  const handleGoogleResponse = async (response) => {
+    try {
+      const res = await axios.post("/api/auth/google", {
+        idToken: response.credential,
+      });
+      if (res.status === 200) {
+        router.push("/dashboard");
+      }
+    } catch (err) {
+      console.error("Google sign-in failed:", err);
+      alert("Google sign-in failed");
+    }
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <form
@@ -33,6 +61,7 @@ export default function LoginPage() {
         className="bg-white p-8 rounded-xl shadow-lg w-96 space-y-4"
       >
         <h2 className="text-2xl font-bold text-center text-gray-800">Login</h2>
+
         <input
           type="email"
           name="email"
@@ -51,12 +80,16 @@ export default function LoginPage() {
           className="w-full p-2 border rounded"
           required
         />
+
         <button
           type="submit"
           className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
         >
           Login
         </button>
+
+        <div id="googleButton" className="flex justify-center mt-4"></div>
+
         {message && <p className="text-center text-sm text-gray-700">{message}</p>}
       </form>
     </div>
