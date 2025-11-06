@@ -1,4 +1,4 @@
-import { categorizeTransaction } from "@/lib/langchain/categorize";
+import { categorizeTransaction } from "@/lib/categorize";
 
 export async function POST(req) {
   try {
@@ -12,7 +12,9 @@ export async function POST(req) {
 
     return new Response(JSON.stringify({ category }), { status: 200 });
   } catch (error) {
-    console.error("Categorization Error:", error);
-    return new Response(JSON.stringify({ error: "Failed to categorize" }), { status: 500 });
+    console.error("❌ Backend Categorization Error:", error);
+    return new Response(JSON.stringify({ error: error.message || "Server Error" }), {
+      status: 500,
+    });
   }
 }

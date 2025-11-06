@@ -11,11 +11,16 @@ import { useRouter } from "next/navigation";
 export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const now = new Date();
+  const [month, setMonth] = useState(String(now.getMonth() + 1));  // 1-12
+  const [year, setYear] = useState(String(now.getFullYear()));
+
   const router = useRouter();
 
   const fetchTransactions = async () => {
     try {
-      const { data } = await axios.get("/api/transactions/list");
+      const { data } = await axios.get("/api/transactions/list", { withCredentials: true });
       setTransactions(data);
     } catch (err) {
       console.error(err);
@@ -41,6 +46,13 @@ export default function Dashboard() {
     }
   };
 
+  const filteredTransactions = transactions.filter((t) => {
+    const d = new Date(t.date);
+    const matchesMonth = month ? d.getMonth() + 1 === Number(month) : true;
+    const matchesYear = year ? d.getFullYear() === Number(year) : true;
+    return matchesMonth && matchesYear;
+  });
+
   if (loading) return <p className="p-4">Loading...</p>;
 
   return (
@@ -55,10 +67,40 @@ export default function Dashboard() {
         </button>
       </div>
 
+      <div className="flex gap-3 mb-4">
+        <select value={month} onChange={(e) => setMonth(e.target.value)} className="border p-2 rounded">
+          <option value="">All Months</option>
+          {Array.from({ length: 12 }, (_, i) => (
+            <option key={i + 1} value={i + 1}>
+              {new Date(0, i).toLocaleString("en", { month: "long" })}
+            </option>
+          ))}
+        </select>
+
+        <select value={year} onChange={(e) => setYear(e.target.value)} className="border p-2 rounded">
+          <option value="">All Years</option>
+          {Array.from({ length: 6 }, (_, i) => {
+            const y = new Date().getFullYear() - i;
+            return <option key={y} value={y}>{y}</option>;
+          })}
+        </select>
+
+        <button
+          onClick={() => {
+            const now = new Date();
+            setMonth(String(now.getMonth() + 1));
+            setYear(String(now.getFullYear()));
+          }}
+          className="px-3 py-2 bg-gray-300 rounded"
+        >
+          Reset
+        </button>
+      </div>
+
       <TransactionForm onAdd={handleAdd} />
-      <UserSummary transactions={transactions} />
-      <SpendingCharts transactions={transactions} />
-      <TransactionList transactions={transactions} />
+      <UserSummary transactions={filteredTransactions} />
+      <SpendingCharts transactions={filteredTransactions} />
+      <TransactionList transactions={filteredTransactions} />
     </div>
   );
 }

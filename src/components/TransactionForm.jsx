@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import axios from "axios";
 
@@ -7,87 +6,94 @@ export default function TransactionForm({ onAdd }) {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
-  const [category, setCategory] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [previewCategory, setPreviewCategory] = useState("");
+  const [loadingPreview, setLoadingPreview] = useState(false);
+  const [loadingAdd, setLoadingAdd] = useState(false);
+  const [error, setError] = useState("");
 
   const handlePreviewCategory = async () => {
-    if (!description) return;
-    setLoading(true);
+    if (!description.trim()) {
+      setError("Please enter a transaction description.");
+      setLoadingPreview(false);
+      return;
+    }
+    setError("");
+    setLoadingPreview(true);
+    setPreviewCategory("");
+
     try {
       const { data } = await axios.post("/api/transactions/categorize", { description });
-      setCategory(data.category);
+      setPreviewCategory(data.category);
     } catch (err) {
       console.error(err);
+      setError("Failed to predict category");
     } finally {
-      setLoading(false);
+      setLoadingPreview(false);
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleAdd = async (e) => {
     e.preventDefault();
-    if (!description || !amount || !date) return;
-    setLoading(true);
+    if (!description || !amount || !date) {
+      setError("All fields are required");
+      return;
+    }
+    setLoadingAdd(true);
     try {
       const { data } = await axios.post("/api/transactions/add", {
-        description,
-        amount: parseFloat(amount),
-        date,
-      });
+  description,
+  amount,
+  date,
+   }, { withCredentials: true });
+
       onAdd(data);
       setDescription("");
       setAmount("");
       setDate("");
-      setCategory("");
+      setPreviewCategory("");
     } catch (err) {
       console.error(err);
+      setError("Failed to add transaction");
     } finally {
-      setLoading(false);
+      setLoadingAdd(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-4 rounded shadow space-y-4">
-      <div>
-        <label className="block font-medium">Description</label>
-        <input
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="border p-2 rounded w-full"
-        />
-        <button
-          type="button"
-          onClick={handlePreviewCategory}
-          className="mt-1 px-2 py-1 bg-blue-500 text-white rounded"
-        >
-          {loading ? "Loading..." : "Preview Category"}
-        </button>
-        {category && <p className="mt-1 text-sm">Predicted: {category}</p>}
-      </div>
-      <div>
-        <label className="block font-medium">Amount</label>
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          className="border p-2 rounded w-full"
-        />
-      </div>
-      <div>
-        <label className="block font-medium">Date</label>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className="border p-2 rounded w-full"
-        />
-      </div>
-      <button
-        type="submit"
-        className="bg-green-500 text-white px-4 py-2 rounded"
-      >
-        {loading ? "Adding..." : "Add Transaction"}
-      </button>
-    </form>
+    <div className="bg-white p-4 rounded-lg shadow mb-4">
+      <h2 className="text-lg font-semibold mb-3">Add Transaction</h2>
+
+      <form onSubmit={handleAdd} className="space-y-3">
+        <input value={description} onChange={(e) => setDescription(e.target.value)}
+          placeholder="Description (ex: Swiggy Order)"
+          className="w-full border p-2 rounded-md" />
+
+        <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)}
+          placeholder="Amount" className="w-full border p-2 rounded-md" />
+
+        <input type="date" value={date} onChange={(e) => setDate(e.target.value)}
+          className="w-full border p-2 rounded-md" />
+
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+
+        <div className="flex gap-3">
+          <button type="button" onClick={handlePreviewCategory}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md">
+            {loadingPreview ? "Predicting..." : "Preview Category"}
+          </button>
+
+          <button type="submit"
+            className="bg-green-600 text-white px-4 py-2 rounded-md">
+            {loadingAdd ? "Adding..." : "Add Transaction"}
+          </button>
+        </div>
+      </form>
+
+      {previewCategory && (
+        <p className="mt-3 text-gray-700">
+          Predicted Category: <strong>{previewCategory}</strong>
+        </p>
+      )}
+    </div>
   );
 }

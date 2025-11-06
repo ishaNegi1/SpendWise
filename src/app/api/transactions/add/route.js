@@ -1,21 +1,17 @@
 import { connectDB } from "@/lib/dbConfig";
 import Transaction from "@/models/Transaction";
 import { verifyToken } from "@/lib/auth";
-import { categorizeTransaction } from "@/lib/langchain/categorize";
+import { categorizeTransaction } from "@/lib/categorize";
 
 export async function POST(req) {
   try {
     await connectDB();
-
-    const token = req.headers.get("authorization")?.split(" ")[1];
-    const tokenData = verifyToken(token);
-
+    const tokenData = await verifyToken();
     if (!tokenData) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
     }
 
     const { description, amount, date } = await req.json();
-
     if (!description || !amount || !date) {
       return new Response(JSON.stringify({ error: "All fields required" }), { status: 400 });
     }
@@ -23,7 +19,7 @@ export async function POST(req) {
     const category = await categorizeTransaction(description);
 
     const transaction = await Transaction.create({
-      userId: tokenData.id,
+      userId: tokenData._id,
       description,
       amount,
       date,

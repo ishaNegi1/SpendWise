@@ -15,7 +15,7 @@ export default function TransactionList({ transactions }) {
             <p className="text-sm text-gray-500">{new Date(t.date).toLocaleDateString()}</p>
           </div>
           <div className="text-right">
-            <p>${t.amount}</p>
+            <p>₹{t.amount}</p>
             <p className="text-sm text-gray-500">{t.category}</p>
           </div>
         </div>
