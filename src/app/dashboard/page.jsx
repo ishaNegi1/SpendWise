@@ -6,14 +6,17 @@ import TransactionForm from "@/components/TransactionForm";
 import TransactionList from "@/components/TransactionList";
 import SpendingCharts from "@/components/SpendingCharts";
 import UserSummary from "@/components/UserSummary";
+import InsightsModal from "@/components/InsightsModal";
 import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [insights, setInsights] = useState("");
+  const [showInsights, setShowInsights] = useState(false);
 
   const now = new Date();
-  const [month, setMonth] = useState(String(now.getMonth() + 1));  // 1-12
+  const [month, setMonth] = useState(String(now.getMonth() + 1));  
   const [year, setYear] = useState(String(now.getFullYear()));
 
   const router = useRouter();
@@ -43,6 +46,19 @@ export default function Dashboard() {
       router.push("/login");
     } catch (err) {
       console.error("Logout failed", err);
+    }
+  };
+
+  const fetchAIInsights = async () => {
+    try {
+      setInsights("⏳ Generating insights...");
+      setShowInsights(true);
+      const { data } = await axios.post("/api/ai/insights", {}, { withCredentials: true });
+      setInsights(data?.insights || "No insights generated.");
+    } catch (err) {
+      console.error("AI Insights Error", err);
+      setInsights("⚠ Failed to generate insights. Try again later.");
+      setShowInsights(true);
     }
   };
 
@@ -95,12 +111,23 @@ export default function Dashboard() {
         >
           Reset
         </button>
+        <button
+          onClick={fetchAIInsights}
+          className="px-3 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+        >
+          🤖 Get AI Insights
+        </button>
       </div>
 
       <TransactionForm onAdd={handleAdd} />
       <UserSummary transactions={filteredTransactions} />
       <SpendingCharts transactions={filteredTransactions} />
       <TransactionList transactions={filteredTransactions} />
+       <InsightsModal
+        open={showInsights}
+        onClose={() => setShowInsights(false)}
+        insights={insights}
+      />
     </div>
   );
 }
