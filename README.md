@@ -24,53 +24,53 @@ Deployment - Vercel</br>
 👉 <a href="https://spendwise-lovat.vercel.app/" target="_blank">Click here</a> to visit the live website.
 
 <b><h2>📁 Project Structure</h2></b>
-src/
-├─ app/
-│ ├─ dashboard/page.jsx
-│ ├─ login/page.jsx 
-│ ├─ signup/page.jsx
-│ ├─ api/
-│ │ ├─ ai/insights/route.js
-│ │ ├─ auth/
-│ │ │ ├─goole/route.js
-│ │ │ ├─login/route.js
-│ │ │ ├─logout/route.js
-│ │ │ ├─signup/route.js
-│ │ ├─ transactions/
-│ │ │ ├─add/route.js
-│ │ │ ├─categorize/route.js
-│ │ │ ├─list/route.js
-│ │ ├─ user/me/route.js
-│
-├─ components/
-│ ├─ TransactionForm.jsx
-│ ├─ TransactionList.jsx
-│ ├─ InsightsModal.jsx
-│ ├─ SpendingCharts.jsx
-│ ├─ UserSummary.jsx
-│
-├─ lib/
-│ ├─ budgetCoach.js ← AI Insight Engine (History + Trends + LLM)
-│ ├─ categorize.js ← Zero-shot category classifier
-│ ├─ auth.js
-│ ├─ googleAuth.js
-│ ├─ dbConfig.js
-│
-├─ models/
-│ ├─ User.js
+src/</br>
+├─ app/</br>
+│ ├─ dashboard/page.jsx</br>
+│ ├─ login/page.jsx</br> 
+│ ├─ signup/page.jsx</br>
+│ ├─ api/</br>
+│ │ ├─ ai/insights/route.js</br>
+│ │ ├─ auth/</br>
+│ │ │ ├─goole/route.js</br>
+│ │ │ ├─login/route.js</br>
+│ │ │ ├─logout/route.js</br>
+│ │ │ ├─signup/route.js</br>
+│ │ ├─ transactions/</br>
+│ │ │ ├─add/route.js</br>
+│ │ │ ├─categorize/route.js</br>
+│ │ │ ├─list/route.js</br>
+│ │ ├─ user/me/route.js</br>
+│</br>
+├─ components/</br>
+│ ├─ TransactionForm.jsx</br>
+│ ├─ TransactionList.jsx</br>
+│ ├─ InsightsModal.jsx</br>
+│ ├─ SpendingCharts.jsx</br>
+│ ├─ UserSummary.jsx</br>
+│</br>
+├─ lib/</br>
+│ ├─ budgetCoach.js ← AI Insight Engine (History + Trends + LLM</br>
+│ ├─ categorize.js ← Zero-shot category classifier</br>
+│ ├─ auth.js</br>
+│ ├─ googleAuth.js</br>
+│ ├─ dbConfig.js</br>
+│</br>
+├─ models/</br>
+│ ├─ User.js</br>
 │ ├─ Transaction.js
 
 <b><h2>⚙️ Environment Setup</h2></b>
-Create a `.env` file in root directory:
-MONGO_URI=your_mongo_uri
-JWT_SECRET=your_jwt_secret
-HUGGINGFACE_API_KEY=hf_******************
+Create a `.env` file in root directory:</br>
+MONGO_URI=your_mongo_uri</br>
+JWT_SECRET=your_jwt_secret</br>
+HUGGINGFACE_API_KEY=hf_******************</br>
 NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
 
 <b><h2>🚀 Run Locally</h2></b>
-git clone https://github.com/YOUR-USERNAME/spendwise.git
-cd spendwise
-npm install
+git clone https://github.com/YOUR-USERNAME/spendwise.git</br>
+cd spendwise</br>
+npm install</br>
 npm run dev
 
 <b><h2>🤝 Contributing</h2></b>
