@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<b><h1> 💰 SpendWise – AI-Powered Spending Analyzer & Personal Finance Insights Dashboard</h1></b>
+A smart expense tracking application that automatically categorizes transactions, visualizes spending patterns, and generates personalized AI insights based on your real financial behavior.
 
-## Getting Started
+<b><h2>✅ Key Features</h2></b>
+🤖 AI Auto-Categorization - Uses zero-shot ML model (`bart-large-mnli`) to detect category from text.</br>
+📊 Spending Dashboard - Month + year filters, total summaries, category breakdowns.</br>
+📈 Interactive Charts - Pie chart by category + bar graph by month.</br>
+🧠 Personalized AI Insights - Uses `Qwen/Qwen2.5-7B-Instruct` and past 12 months of data.</br>
+🔐 Auth System - Email/Password + Google Login (JWT + HttpOnly cookie).</br>
+🗄  Secure User Data - User-scoped transactions in MongoDB.</br> 
+💸 100% Free AI - No OpenAI cost — fully on HuggingFace free tier API.</br> 
+📱  Responsive UI - Tailwind + clean dashboard UI.
 
-First, run the development server:
+<b><h2>🛠 Tech Stack</h2></b>
+Frontend - Next.js 16 (App Router), TailwindCSS</br>
+Backend - Next.js Route Handlers, JWT, bcrypt</br>
+Database - MongoDB + Mongoose</br>
+AI Models - `facebook/bart-large-mnli`, `Qwen/Qwen2.5-7B-Instruct`</br>
+Auth - JWT + Google OAuth 2.0</br>
+Charts - Chart.js</br>
+Deployment - Vercel</br>
 
-```bash
+<b><h2>🌐 Live Demo</h2></b>
+👉 <a href="https://spendwise-lovat.vercel.app/" target="_blank">Click here</a> to visit the live website.
+
+<b><h2>📁 Project Structure</h2></b>
+src/
+├─ app/
+│ ├─ dashboard/page.jsx
+│ ├─ login/page.jsx 
+│ ├─ signup/page.jsx
+│ ├─ api/
+│ │ ├─ ai/insights/route.js
+│ │ ├─ auth/
+│ │ │ ├─goole/route.js
+│ │ │ ├─login/route.js
+│ │ │ ├─logout/route.js
+│ │ │ ├─signup/route.js
+│ │ ├─ transactions/
+│ │ │ ├─add/route.js
+│ │ │ ├─categorize/route.js
+│ │ │ ├─list/route.js
+│ │ ├─ user/me/route.js
+│
+├─ components/
+│ ├─ TransactionForm.jsx
+│ ├─ TransactionList.jsx
+│ ├─ InsightsModal.jsx
+│ ├─ SpendingCharts.jsx
+│ ├─ UserSummary.jsx
+│
+├─ lib/
+│ ├─ budgetCoach.js ← AI Insight Engine (History + Trends + LLM)
+│ ├─ categorize.js ← Zero-shot category classifier
+│ ├─ auth.js
+│ ├─ googleAuth.js
+│ ├─ dbConfig.js
+│
+├─ models/
+│ ├─ User.js
+│ ├─ Transaction.js
+
+<b><h2>⚙️ Environment Setup</h2></b>
+Create a `.env` file in root directory:
+MONGO_URI=your_mongo_uri
+JWT_SECRET=your_jwt_secret
+HUGGINGFACE_API_KEY=hf_******************
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
+
+<b><h2>🚀 Run Locally</h2></b>
+git clone https://github.com/YOUR-USERNAME/spendwise.git
+cd spendwise
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<b><h2>🤝 Contributing</h2></b>
+Contributions are welcome! Please open an issue or submit a pull request.
