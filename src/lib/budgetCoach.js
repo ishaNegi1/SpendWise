@@ -2,8 +2,13 @@ import { InferenceClient } from "@huggingface/inference";
 
 export function buildUserProfile(lastNMonthsBuckets = []) {
   const monthsTracked = lastNMonthsBuckets.length;
-  const totalAcross = lastNMonthsBuckets.reduce((s, m) => s + (m.total || 0), 0);
-  const averageSpendPerMonth = monthsTracked ? Math.round(totalAcross / monthsTracked) : 0;
+  const totalAcross = lastNMonthsBuckets.reduce(
+    (s, m) => s + (m.total || 0),
+    0
+  );
+  const averageSpendPerMonth = monthsTracked
+    ? Math.round(totalAcross / monthsTracked)
+    : 0;
 
   const categorySums = {};
   for (const m of lastNMonthsBuckets) {
@@ -50,15 +55,21 @@ export function buildMonthComparison(currentBucket, prevBucket) {
     const cur = current.byCategory[c] || 0;
     const pr = previous.byCategory[c] || 0;
     const change = cur - pr;
-    const changePct = pr > 0 ? Number(((change / pr) * 100).toFixed(1)) : (cur > 0 ? 100 : 0);
+    const changePct =
+      pr > 0 ? Number(((change / pr) * 100).toFixed(1)) : cur > 0 ? 100 : 0;
     categoryDeltas[c] = { current: cur, previous: pr, change, changePct };
   }
 
   const totalChange = (current.total || 0) - (previous.total || 0);
   const totalChangePct =
     (previous.total || 0) > 0
-      ? Number((((current.total || 0) - (previous.total || 0)) / previous.total) * 100).toFixed(1)
-      : ((current.total || 0) > 0 ? 100 : 0);
+      ? Number(
+          (((current.total || 0) - (previous.total || 0)) / previous.total) *
+            100
+        ).toFixed(1)
+      : (current.total || 0) > 0
+      ? 100
+      : 0;
 
   return {
     currentMonth: {
@@ -119,7 +130,10 @@ TASK:
     const content = res?.choices?.[0]?.message?.content;
     if (content) return content;
   } catch (err) {
-    console.warn("HF chatCompletion failed, falling back to textGeneration:", err?.message || err);
+    console.warn(
+      "HF chatCompletion failed, falling back to textGeneration:",
+      err?.message || err
+    );
   }
 
   try {
@@ -138,5 +152,5 @@ TASK:
     console.error("HF textGeneration failed:", err);
   }
 
-  return "⚠️ Could not generate insights right now. Please try again later.";
+  return "Could not generate insights right now. Please try again later.";
 }

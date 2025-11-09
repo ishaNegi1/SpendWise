@@ -6,9 +6,11 @@ export async function GET() {
   try {
     await connectDB();
 
-    const tokenData = await verifyToken(); 
+    const tokenData = await verifyToken();
     if (!tokenData) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+      });
     }
 
     const transactions = await Transaction.find({ userId: tokenData._id })

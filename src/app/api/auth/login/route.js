@@ -23,15 +23,24 @@ export async function POST(req) {
 
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
-      return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
+      return NextResponse.json(
+        { message: "Invalid credentials" },
+        { status: 401 }
+      );
     }
 
     const token = createToken(user);
-    const res = NextResponse.json({ message: "Login successful", user }, { status: 200 });
+    const res = NextResponse.json(
+      { message: "Login successful", user },
+      { status: 200 }
+    );
     setTokenCookie(res, token);
     return res;
   } catch (err) {
     console.error("Login Error:", err);
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

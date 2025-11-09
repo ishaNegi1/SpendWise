@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import Transaction from "@/models/Transaction"; 
+import Transaction from "@/models/Transaction";
 import { connectDB } from "@/lib/dbConfig";
 import { verifyToken } from "@/lib/auth";
 import {
@@ -20,7 +20,8 @@ function bucketizeMonthly(transactions) {
   for (const t of transactions) {
     const d = new Date(t.date);
     const key = monthKeyFromDate(d);
-    if (!map.has(key)) map.set(key, { monthKey: key, total: 0, byCategory: {} });
+    if (!map.has(key))
+      map.set(key, { monthKey: key, total: 0, byCategory: {} });
     const row = map.get(key);
     const amt = Number(t.amount) || 0;
     row.total += amt;
@@ -56,8 +57,7 @@ export async function POST() {
 
     if (!txns || txns.length === 0) {
       return NextResponse.json({
-        insights:
-          "No transactions found yet. Add some expenses and try again!",
+        insights: "No transactions found yet. Add some expenses and try again!",
       });
     }
 
@@ -68,23 +68,26 @@ export async function POST() {
     const prevMidDate = new Date(now.getFullYear(), now.getMonth() - 1, 15);
     const prevKey = monthKeyFromDate(prevMidDate);
 
-    const currentBucket =
-      monthlyBuckets.find((m) => m.monthKey === currentKey) || {
-        monthKey: currentKey,
-        total: 0,
-        byCategory: {},
-      };
+    const currentBucket = monthlyBuckets.find(
+      (m) => m.monthKey === currentKey
+    ) || {
+      monthKey: currentKey,
+      total: 0,
+      byCategory: {},
+    };
 
-    const prevBucket =
-      monthlyBuckets.find((m) => m.monthKey === prevKey) || {
-        monthKey: prevKey,
-        total: 0,
-        byCategory: {},
-      };
+    const prevBucket = monthlyBuckets.find((m) => m.monthKey === prevKey) || {
+      monthKey: prevKey,
+      total: 0,
+      byCategory: {},
+    };
 
     const monthComparison = buildMonthComparison(currentBucket, prevBucket);
 
-    const insights = await generateBudgetInsights({ userProfile, monthComparison });
+    const insights = await generateBudgetInsights({
+      userProfile,
+      monthComparison,
+    });
 
     return NextResponse.json({ insights });
   } catch (err) {

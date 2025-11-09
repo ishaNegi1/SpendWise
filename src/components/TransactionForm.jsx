@@ -22,7 +22,9 @@ export default function TransactionForm({ onAdd }) {
     setPreviewCategory("");
 
     try {
-      const { data } = await axios.post("/api/transactions/categorize", { description });
+      const { data } = await axios.post("/api/transactions/categorize", {
+        description,
+      });
       setPreviewCategory(data.category);
     } catch (err) {
       console.error(err);
@@ -40,11 +42,15 @@ export default function TransactionForm({ onAdd }) {
     }
     setLoadingAdd(true);
     try {
-      const { data } = await axios.post("/api/transactions/add", {
-  description,
-  amount,
-  date,
-   }, { withCredentials: true });
+      const { data } = await axios.post(
+        "/api/transactions/add",
+        {
+          description,
+          amount,
+          date,
+        },
+        { withCredentials: true }
+      );
 
       onAdd(data);
       setDescription("");
@@ -64,26 +70,43 @@ export default function TransactionForm({ onAdd }) {
       <h2 className="text-lg font-semibold mb-3">Add Transaction</h2>
 
       <form onSubmit={handleAdd} className="space-y-3">
-        <input value={description} onChange={(e) => setDescription(e.target.value)}
+        <input
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           placeholder="Description (ex: Swiggy Order)"
-          className="w-full border p-2 rounded-md" />
+          className="w-full border p-2 rounded-md"
+        />
 
-        <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)}
-          placeholder="Amount" className="w-full border p-2 rounded-md" />
+        <input
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          placeholder="Amount"
+          className="w-full border p-2 rounded-md"
+        />
 
-        <input type="date" value={date} onChange={(e) => setDate(e.target.value)}
-          className="w-full border p-2 rounded-md" />
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          className="w-full border p-2 rounded-md"
+        />
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
         <div className="flex gap-3">
-          <button type="button" onClick={handlePreviewCategory}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md">
+          <button
+            type="button"
+            onClick={handlePreviewCategory}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+          >
             {loadingPreview ? "Predicting..." : "Preview Category"}
           </button>
 
-          <button type="submit"
-            className="bg-green-600 text-white px-4 py-2 rounded-md">
+          <button
+            type="submit"
+            className="bg-green-600 text-white px-4 py-2 rounded-md"
+          >
             {loadingAdd ? "Adding..." : "Add Transaction"}
           </button>
         </div>

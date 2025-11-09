@@ -5,20 +5,20 @@ export async function categorizeTransaction(description) {
     const hf = new InferenceClient(process.env.HUGGINGFACE_API_KEY);
 
     const labels = [
-  "food",
-  "entertainment",
-  "shopping",
-  "transportation",
-  "bills",
-  "healthcare",
-  "education",
-  "finance"
-];
+      "food",
+      "entertainment",
+      "shopping",
+      "transportation",
+      "bills",
+      "healthcare",
+      "education",
+      "finance",
+    ];
 
     const result = await hf.zeroShotClassification({
       model: "facebook/bart-large-mnli",
       inputs: description,
-      parameters: { candidate_labels: labels }
+      parameters: { candidate_labels: labels },
     });
 
     if (Array.isArray(result) && result.length > 0) {
@@ -26,12 +26,12 @@ export async function categorizeTransaction(description) {
     }
 
     if (result?.labels?.length > 0) {
-      return result.labels[0]; 
+      return result.labels[0];
     }
 
     return "Other";
   } catch (error) {
-    console.error("❌ HF Error:", error);
+    console.error("HF Error:", error);
     return "Other";
   }
 }

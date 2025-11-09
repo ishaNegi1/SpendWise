@@ -11,7 +11,10 @@ export async function POST(req) {
 
     const existing = await User.findOne({ email });
     if (existing) {
-      return NextResponse.json({ message: "User already exists" }, { status: 400 });
+      return NextResponse.json(
+        { message: "User already exists" },
+        { status: 400 }
+      );
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -22,11 +25,17 @@ export async function POST(req) {
     });
 
     const token = createToken(user);
-    const res = NextResponse.json({ message: "Signup successful", user }, { status: 201 });
+    const res = NextResponse.json(
+      { message: "Signup successful", user },
+      { status: 201 }
+    );
     setTokenCookie(res, token);
     return res;
   } catch (err) {
     console.error("Signup Error:", err);
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

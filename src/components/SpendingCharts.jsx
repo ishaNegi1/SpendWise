@@ -11,7 +11,8 @@ export default function SpendingCharts({ transactions }) {
 
     const categoryTotals = {};
     transactions.forEach((t) => {
-      categoryTotals[t.category] = (categoryTotals[t.category] || 0) + Number(t.amount);
+      categoryTotals[t.category] =
+        (categoryTotals[t.category] || 0) + Number(t.amount);
     });
 
     const labels = Object.keys(categoryTotals);
@@ -34,20 +35,22 @@ export default function SpendingCharts({ transactions }) {
   if (!transactions.length) return null;
 
   return (
-  <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div className="bg-white p-3 rounded shadow">
-      <h3 className="text-center font-semibold mb-2">Spending by Category</h3>
-      <div className="h-64">
-        <canvas id="pieChart"></canvas>
+    <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="bg-white p-3 rounded shadow">
+        <h3 className="text-center font-semibold mb-2">Spending by Category</h3>
+        <div className="h-64">
+          <canvas id="pieChart"></canvas>
+        </div>
       </div>
-    </div>
 
-    <div className="bg-white p-3 rounded shadow">
-      <h3 className="text-center font-semibold mb-2">Category-wise Bar Chart</h3>
-      <div className="h-64">
-        <canvas id="barChart"></canvas>
+      <div className="bg-white p-3 rounded shadow">
+        <h3 className="text-center font-semibold mb-2">
+          Category-wise Bar Chart
+        </h3>
+        <div className="h-64">
+          <canvas id="barChart"></canvas>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 }

@@ -11,7 +11,10 @@ export async function POST(req) {
 
     const userData = await verifyGoogleToken(idToken);
     if (!userData) {
-      return NextResponse.json({ message: "Invalid Google token" }, { status: 400 });
+      return NextResponse.json(
+        { message: "Invalid Google token" },
+        { status: 400 }
+      );
     }
 
     let user = await User.findOne({ email: userData.email });
@@ -25,11 +28,17 @@ export async function POST(req) {
     }
 
     const token = createToken(user);
-    const res = NextResponse.json({ message: "Google login successful", user }, { status: 200 });
+    const res = NextResponse.json(
+      { message: "Google login successful", user },
+      { status: 200 }
+    );
     setTokenCookie(res, token);
     return res;
   } catch (err) {
     console.error("Google Login Error:", err);
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
