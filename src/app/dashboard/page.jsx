@@ -7,6 +7,7 @@ import TransactionList from "@/components/TransactionList";
 import SpendingCharts from "@/components/SpendingCharts";
 import UserSummary from "@/components/UserSummary";
 import InsightsModal from "@/components/InsightsModal";
+import BudgetModal from "@/components/BudgetModal";
 import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
@@ -14,16 +15,19 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [insights, setInsights] = useState("");
   const [showInsights, setShowInsights] = useState(false);
+  const [showBudgetModal, setShowBudgetModal] = useState(false);
 
   const now = new Date();
-  const [month, setMonth] = useState(String(now.getMonth() + 1));  
+  const [month, setMonth] = useState(String(now.getMonth() + 1));
   const [year, setYear] = useState(String(now.getFullYear()));
 
   const router = useRouter();
 
   const fetchTransactions = async () => {
     try {
-      const { data } = await axios.get("/api/transactions/list", { withCredentials: true });
+      const { data } = await axios.get("/api/transactions/list", {
+        withCredentials: true,
+      });
       setTransactions(data);
     } catch (err) {
       console.error(err);
@@ -43,7 +47,7 @@ export default function Dashboard() {
   const handleLogout = async () => {
     try {
       await axios.post("/api/auth/logout");
-      router.push("/login");
+      router.push("/");
     } catch (err) {
       console.error("Logout failed", err);
     }
@@ -53,12 +57,47 @@ export default function Dashboard() {
     try {
       setInsights("⏳ Generating insights...");
       setShowInsights(true);
-      const { data } = await axios.post("/api/ai/insights", {}, { withCredentials: true });
+
+      const { data } = await axios.post(
+        "/api/ai/insights",
+        {},
+        { withCredentials: true }
+      );
+
       setInsights(data?.insights || "No insights generated.");
     } catch (err) {
       console.error("AI Insights Error", err);
       setInsights("⚠ Failed to generate insights. Try again later.");
       setShowInsights(true);
+    }
+  };
+
+  const downloadPDF = async () => {
+    if (!insights || insights.trim() === "") {
+      alert("Please generate AI insights first.");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/reports/monthly", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          month: Number(month),
+          year: Number(year),
+          insights,
+        }),
+      });
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `SpendWise-Report-${month}-${year}.pdf`;
+      a.click();
+    } catch (err) {
+      console.error("PDF Download Error:", err);
     }
   };
 
@@ -84,7 +123,11 @@ export default function Dashboard() {
       </div>
 
       <div className="flex gap-3 mb-4">
-        <select value={month} onChange={(e) => setMonth(e.target.value)} className="border p-2 rounded">
+        <select
+          value={month}
+          onChange={(e) => setMonth(e.target.value)}
+          className="border p-2 rounded"
+        >
           <option value="">All Months</option>
           {Array.from({ length: 12 }, (_, i) => (
             <option key={i + 1} value={i + 1}>
@@ -93,11 +136,19 @@ export default function Dashboard() {
           ))}
         </select>
 
-        <select value={year} onChange={(e) => setYear(e.target.value)} className="border p-2 rounded">
+        <select
+          value={year}
+          onChange={(e) => setYear(e.target.value)}
+          className="border p-2 rounded"
+        >
           <option value="">All Years</option>
           {Array.from({ length: 6 }, (_, i) => {
             const y = new Date().getFullYear() - i;
-            return <option key={y} value={y}>{y}</option>;
+            return (
+              <option key={y} value={y}>
+                {y}
+              </option>
+            );
           })}
         </select>
 
@@ -111,11 +162,26 @@ export default function Dashboard() {
         >
           Reset
         </button>
+
         <button
           onClick={fetchAIInsights}
           className="px-3 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
         >
-          🤖 Get AI Insights
+          🤖 Get Insights From Previous Month
+        </button>
+
+        <button
+          onClick={() => setShowBudgetModal(true)}
+          className="px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+        >
+          🛡️ Set Spending Control
+        </button>
+
+        <button
+          onClick={downloadPDF}
+          className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          📄 Download PDF Report
         </button>
       </div>
 
@@ -123,10 +189,16 @@ export default function Dashboard() {
       <UserSummary transactions={filteredTransactions} />
       <SpendingCharts transactions={filteredTransactions} />
       <TransactionList transactions={filteredTransactions} />
-       <InsightsModal
+
+      <InsightsModal
         open={showInsights}
         onClose={() => setShowInsights(false)}
         insights={insights}
+      />
+      <BudgetModal
+        open={showBudgetModal}
+        onClose={() => setShowBudgetModal(false)}
+        transactions={transactions}
       />
     </div>
   );

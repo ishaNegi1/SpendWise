@@ -91,10 +91,12 @@ export async function generateBudgetInsights(spendingSnapshot) {
   const hf = new InferenceClient(process.env.HUGGINGFACE_API_KEY);
 
   const system = `
-You are an AI Budget Coach for personal finance.
+You are an AI Budget Coach for personal finance in India.
 - Be concise, friendly, and data-driven.
 - Always reference the user's own historical averages when relevant.
 - Use bullet points. Prefer 4-8 bullets total.
+- Always use the Indian Rupee symbol (₹) when mentioning amounts.
+- Never use dollars ($) or USD formatting.
 - Output sections:
   • Insights (3-5 bullets)
   • Tips (2-3 bullets)
@@ -127,8 +129,13 @@ TASK:
       temperature: 0.3,
     });
 
-    const content = res?.choices?.[0]?.message?.content;
-    if (content) return content;
+    let content = res?.choices?.[0]?.message?.content;
+
+    if (content) {
+      content = content.replace(/\$/g, "₹");
+      content = content.replace(/\bUSD\b/gi, "INR");
+      return content;
+    }
   } catch (err) {
     console.warn(
       "HF chatCompletion failed, falling back to textGeneration:",

@@ -40,6 +40,7 @@ export default function TransactionForm({ onAdd }) {
       setError("All fields are required");
       return;
     }
+    setError("");
     setLoadingAdd(true);
     try {
       const { data } = await axios.post(
@@ -73,7 +74,7 @@ export default function TransactionForm({ onAdd }) {
         <input
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Description (ex: Swiggy Order)"
+          placeholder="Description (ex: food order from swiggy)"
           className="w-full border p-2 rounded-md"
         />
 
