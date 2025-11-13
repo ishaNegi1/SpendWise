@@ -1,5 +1,5 @@
 <b><h1> 💰 SpendWise – AI-Powered Spending Analyzer & Personal Finance Insights Dashboard</h1></b>
-A smart expense tracking application that automatically categorizes transactions, visualizes spending patterns, generates personalized AI insights based on your real financial behavior.
+A smart expense tracking application that automatically categorizes transactions, visualizes spending patterns, provides personalized AI insights, lets you set spending limits with real-time alerts, and generates downloadable monthly PDF reports, all tailored to your financial habits.
 
 <hr>
 
