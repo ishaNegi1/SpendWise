@@ -38,6 +38,7 @@ A smart expense tracking application that automatically categorizes transactions
 src/</br>
 ├─ app/</br>
 │ ├─ dashboard/page.jsx</br>
+│ ├─ addTransaction/page.jsx</br>
 │ ├─ login/page.jsx</br> 
 │ ├─ signup/page.jsx</br>
 │ ├─ api/</br>
