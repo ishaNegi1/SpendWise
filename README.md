@@ -37,8 +37,15 @@ A smart expense tracking application that automatically categorizes transactions
 <b><h2>📁 Project Structure</h2></b>
 src/</br>
 ├─ app/</br>
-│ ├─ dashboard/page.jsx</br>
-│ ├─ addTransaction/page.jsx</br>
+│ ├─ dashboard</br>
+│ │ ├─page.jsx</br>
+│ │ ├─DashboardClient.jsx</br>
+│ ├─ addTransaction</br>
+│ │ ├─page.jsx</br>
+│ │ ├─Transaction.jsx</br>
+│ ├─ setLimit</br>
+│ │ ├─page.jsx</br>
+│ │ ├─ControlSpending.jsx</br>
 │ ├─ login/page.jsx</br> 
 │ ├─ signup/page.jsx</br>
 │ ├─ api/</br>
@@ -64,12 +71,12 @@ src/</br>
 │ ├─ SpendingCharts.jsx</br>
 │ ├─ UserSummary.jsx</br>
 │ ├─ InsightsModal.jsx</br>
-│ ├─ BudgetModal.jsx</br>
 │</br>
 ├─ lib/</br>
 │ ├─ budgetCoach.js</br>
 │ ├─ categorize.jsr</br>
 │ ├─ auth.js</br>
+│ ├─ checkAuth.js</br>
 │ ├─ googleAuth.js</br>
 │ ├─ dbConfig.js</br>
 │</br>
