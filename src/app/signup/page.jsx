@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -98,6 +99,16 @@ export default function SignupPage() {
         </button>
 
         <div id="googleButton" className="flex justify-center mt-4"></div>
+
+        <div className="text-center text-sm text-gray-600">
+                  Existing user?{" "}
+                  <Link
+                    href="/login"
+                    className="text-blue-600 font-medium hover:underline"
+                  >
+                    Login
+                  </Link>
+                </div>
 
         {message && <p className="text-center text-sm text-gray-700">{message}</p>}
       </form>

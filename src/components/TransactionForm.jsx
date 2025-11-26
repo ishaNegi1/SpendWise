@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
-export default function TransactionForm({ onAdd }) {
+export default function TransactionForm() {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
@@ -10,6 +11,7 @@ export default function TransactionForm({ onAdd }) {
   const [loadingPreview, setLoadingPreview] = useState(false);
   const [loadingAdd, setLoadingAdd] = useState(false);
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const handlePreviewCategory = async () => {
     if (!description.trim()) {
@@ -53,11 +55,11 @@ export default function TransactionForm({ onAdd }) {
         { withCredentials: true }
       );
 
-      onAdd(data);
       setDescription("");
       setAmount("");
       setDate("");
       setPreviewCategory("");
+      router.push("/dashboard");
     } catch (err) {
       console.error(err);
       setError("Failed to add transaction");

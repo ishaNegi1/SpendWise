@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -33,10 +34,11 @@ export default function LoginPage() {
         callback: handleGoogleResponse,
       });
 
-      google.accounts.id.renderButton(
-        document.getElementById("googleButton"),
-        { theme: "outline", size: "large", width: "250" }
-      );
+      google.accounts.id.renderButton(document.getElementById("googleButton"), {
+        theme: "outline",
+        size: "large",
+        width: "250",
+      });
     }
   }, []);
 
@@ -90,7 +92,19 @@ export default function LoginPage() {
 
         <div id="googleButton" className="flex justify-center mt-4"></div>
 
-        {message && <p className="text-center text-sm text-gray-700">{message}</p>}
+        <div className="text-center text-sm text-gray-600">
+          New user?{" "}
+          <Link
+            href="/signup"
+            className="text-blue-600 font-medium hover:underline"
+          >
+            Sign up
+          </Link>
+        </div>
+
+        {message && (
+          <p className="text-center text-sm text-gray-700">{message}</p>
+        )}
       </form>
     </div>
   );

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { checkAuth } from "@/lib/checkAuth";
-import DashboardClient from "./DashboardClient";
+import Transaction from "./Transaction";
 
 export default async function DashboardPage() {
   const user = await checkAuth();
@@ -9,5 +9,5 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  return <DashboardClient />;
+  return <Transaction />;
 }
