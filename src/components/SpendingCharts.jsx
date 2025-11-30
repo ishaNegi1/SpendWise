@@ -35,20 +35,25 @@ export default function SpendingCharts({ transactions }) {
   if (!transactions.length) return null;
 
   return (
-    <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div className="bg-white p-3 rounded shadow">
-        <h3 className="text-center font-semibold mb-2">Spending by Category</h3>
-        <div className="h-64">
-          <canvas id="pieChart"></canvas>
+    <div className=" mb-20 grid grid-cols-1 md:grid-cols-2 gap-8">
+    
+      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-6">
+        <h3 className="text-xl font-semibold text-center bg-clip-text text-transparent bg-linear-to-r from-[#1e3a8a] to-[#312e81] mb-8">
+          Spending by Category
+        </h3>
+
+        <div className="h-72 flex justify-center items-center">
+          <canvas id="pieChart" className="w-full"></canvas>
         </div>
       </div>
 
-      <div className="bg-white p-3 rounded shadow">
-        <h3 className="text-center font-semibold mb-2">
-          Category-wise Bar Chart
+      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-6">
+        <h3 className="text-xl font-semibold text-center bg-clip-text text-transparent bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] mb-8">
+          Category-wise Spending (Bar Chart)
         </h3>
-        <div className="h-64">
-          <canvas id="barChart"></canvas>
+
+        <div className="h-72 flex justify-center items-center">
+          <canvas id="barChart" className="w-full"></canvas>
         </div>
       </div>
     </div>

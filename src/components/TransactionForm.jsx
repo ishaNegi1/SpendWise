@@ -69,15 +69,17 @@ export default function TransactionForm() {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow mb-4">
-      <h2 className="text-lg font-semibold mb-3">Add Transaction</h2>
+    <div className="bg-white p-8 rounded-2xl shadow-2xl border border-gray-200">
+      <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-[#1e3a8a] to-[#312e81] mb-6">
+        Add Transaction
+      </h2>
 
-      <form onSubmit={handleAdd} className="space-y-3">
+      <form onSubmit={handleAdd} className="space-y-7">
         <input
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Description (ex: food order from swiggy)"
-          className="w-full border p-2 rounded-md"
+          placeholder="Description (e.g., Swiggy food order)"
+          className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] transition"
         />
 
         <input
@@ -85,30 +87,30 @@ export default function TransactionForm() {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           placeholder="Amount"
-          className="w-full border p-2 rounded-md"
+          className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] transition"
         />
 
         <input
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className="w-full border p-2 rounded-md"
+          className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] transition"
         />
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-8 pt-2">
           <button
             type="button"
             onClick={handlePreviewCategory}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+            className="px-5 py-3 rounded-lg text-white font-semibold bg-linear-to-r from-[#1e3a8a] to-[#312e81] shadow hover:opacity-90 transition"
           >
             {loadingPreview ? "Predicting..." : "Preview Category"}
           </button>
 
           <button
             type="submit"
-            className="bg-green-600 text-white px-4 py-2 rounded-md"
+            className="px-5 py-3 rounded-lg text-white font-semibold bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] shadow hover:opacity-90 transition cursor-pointer"
           >
             {loadingAdd ? "Adding..." : "Add Transaction"}
           </button>
@@ -116,9 +118,14 @@ export default function TransactionForm() {
       </form>
 
       {previewCategory && (
-        <p className="mt-3 text-gray-700">
-          Predicted Category: <strong>{previewCategory}</strong>
-        </p>
+        <div className="mt-5 p-4 bg-gray-100 rounded-lg shadow-inner text-gray-800">
+          <p>
+            Predicted Category:{" "}
+            <span className="font-bold text-[#1e3a8a] cursor-pointer">
+              {previewCategory}
+            </span>
+          </p>
+        </div>
       )}
     </div>
   );

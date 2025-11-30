@@ -8,6 +8,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -15,10 +16,12 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
+    setLoading(true);
 
     try {
       const res = await axios.post("/api/auth/login", form);
       if (res.status === 200) {
+        setLoading(false);
         setMessage("Login successful! Redirecting...");
         setTimeout(() => router.push("/dashboard"), 1000);
       }
@@ -37,7 +40,8 @@ export default function LoginPage() {
       google.accounts.id.renderButton(document.getElementById("googleButton"), {
         theme: "outline",
         size: "large",
-        width: "250",
+        width: "260",
+        text: "continue_with",
       });
     }
   }, []);
@@ -51,18 +55,19 @@ export default function LoginPage() {
         router.push("/dashboard");
       }
     } catch (err) {
-      console.error("Google sign-in failed:", err);
       alert("Google sign-in failed");
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center mt-20 sm:px-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-xl shadow-lg w-96 space-y-4"
+        className="bg-white sm:p-10 p-7 rounded-2xl shadow-2xl space-y-6 border border-gray-200 sm:w-full sm:max-w-md"
       >
-        <h2 className="text-2xl font-bold text-center text-gray-800">Login</h2>
+        <h2 className="text-3xl font-bold text-center bg-clip-text text-transparent bg-linear-to-r from-[#1e3a8a] to-[#312e81]">
+          Welcome Back
+        </h2>
 
         <input
           type="email"
@@ -70,41 +75,44 @@ export default function LoginPage() {
           placeholder="Email"
           value={form.email}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
+          className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 
+          focus:ring-[#1e3a8a] focus:border-[#1e3a8a] transition"
           required
         />
+
         <input
           type="password"
           name="password"
           placeholder="Password"
           value={form.password}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
+          className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 
+          focus:ring-[#1e3a8a] focus:border-[#1e3a8a] transition"
           required
         />
 
         <button
           type="submit"
-          className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+          className="w-full py-3 rounded-lg text-white font-semibold cursor-pointer
+          bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6]
+          shadow-md hover:opacity-90 transition"
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
 
-        <div id="googleButton" className="flex justify-center mt-4"></div>
+        <div id="googleButton" className="flex justify-center mt-3"></div>
 
-        <div className="text-center text-sm text-gray-600">
+        <div className="text-center text-base text-gray-800">
           New user?{" "}
           <Link
             href="/signup"
-            className="text-blue-600 font-medium hover:underline"
+            className="text-[#1e3a8a] font-bold text-lg hover:underline"
           >
-            Sign up
+            Sign Up
           </Link>
         </div>
 
-        {message && (
-          <p className="text-center text-sm text-gray-700">{message}</p>
-        )}
+        {message && <p className="text-center text-base">{message}</p>}
       </form>
     </div>
   );

@@ -116,14 +116,16 @@ export default function ControlSpending() {
   );
 
   return (
-    <div className="max-w-3xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">🛡️ Spending Controls</h1>
+    <div className="max-w-5xl mx-auto py-8 sm:px-6 sm:mt-14 mt-6">
+      <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-linear-to-r from-[#1e3a8a] to-[#312e81] mb-8 text-center sm:text-left">
+        Spending Controls
+      </h1>
 
-      <div className="flex gap-2 mb-4">
+      <div className="grid grid-cols-2 gap-4 sm:gap-12 mb-12">
         <select
           value={viewMonth}
           onChange={(e) => setViewMonth(Number(e.target.value))}
-          className="border p-2 rounded w-1/2"
+          className="border rounded-lg p-3 focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a]"
         >
           {Array.from({ length: 12 }, (_, i) => (
             <option key={i + 1} value={i + 1}>
@@ -135,7 +137,7 @@ export default function ControlSpending() {
         <select
           value={viewYear}
           onChange={(e) => setViewYear(Number(e.target.value))}
-          className="border p-2 rounded w-1/2"
+          className="border rounded-lg p-3 focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a]"
         >
           {Array.from({ length: 6 }, (_, i) => {
             const y = now.getFullYear() - i;
@@ -148,14 +150,16 @@ export default function ControlSpending() {
         </select>
       </div>
 
-      <div className="border rounded-lg p-4 mb-6">
-        <h2 className="font-semibold mb-3">Set Monthly Limit</h2>
+      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-6 mb-16">
+        <h2 className="text-xl font-semibold text-[#1e3a8a] mb-4">
+          Set Monthly Spending Limit
+        </h2>
 
-        <div className="flex gap-2 mb-3">
+        <div className="grid grid-cols-2 gap-4 sm:gap-10 mb-4 mt-7">
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="border p-2 rounded w-1/2"
+            className="border rounded-lg p-3 focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a]"
           >
             <option value="">Select Category</option>
             {categories.map((c) => (
@@ -169,60 +173,73 @@ export default function ControlSpending() {
             type="number"
             value={limit}
             onChange={(e) => setLimit(e.target.value)}
-            className="border p-2 rounded w-1/2"
+            className="border rounded-lg p-3 focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a]"
             placeholder="Limit ₹"
           />
         </div>
 
         <button
           onClick={handleSetLimit}
-          className="bg-green-600 text-white w-full py-2 rounded hover:bg-green-700"
+          className="w-full py-3 rounded-lg text-white font-semibold bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] shadow hover:opacity-90 transition cursor-pointer mt-5"
         >
           ➕ Add Limit
         </button>
       </div>
 
-      <div>
-        <h2 className="font-semibold mb-4">Your Controls</h2>
+      <h2 className="text-2xl font-semibold text-[#1e3a8a] mb-4">
+        Your Limits
+      </h2>
 
-        {filteredGoals.length === 0 && <p>No controls for this month.</p>}
+      {filteredGoals.length === 0 && (
+        <p className="text-gray-800 text-base">
+          No controls set for this month.
+        </p>
+      )}
 
-        {filteredGoals.map((goal) => {
-          const {
-            total,
-            pctDisplay,
-            alertMsg,
-            limit: gLimit,
-          } = getProgress(goal);
+      {filteredGoals.map((goal) => {
+        const {
+          total,
+          pctDisplay,
+          alertMsg,
+          limit: gLimit,
+        } = getProgress(goal);
 
-          return (
-            <div
-              key={goal._id}
-              className="mb-4 p-3 border rounded-lg bg-gray-50"
-            >
-              <div className="flex justify-between mb-1">
-                <p className="font-medium capitalize">{goal.category}</p>
-                <p className="text-sm text-gray-600">
-                  ₹{total} / ₹{gLimit}
-                </p>
-              </div>
-
-              <div className="w-full bg-gray-200 h-3 rounded overflow-hidden">
-                <div
-                  className={`h-3 ${
-                    total > gLimit ? "bg-red-600" : "bg-green-600"
-                  }`}
-                  style={{ width: `${pctDisplay}%` }}
-                ></div>
-              </div>
-
-              {alertMsg && (
-                <p className="text-xs mt-1 text-red-600">{alertMsg}</p>
-              )}
+        return (
+          <div
+            key={goal._id}
+            className="bg-white rounded-2xl p-5 shadow-xl border border-gray-200 mb-5"
+          >
+            <div className="flex justify-between">
+              <p className="capitalize text-lg font-semibold text-[#1e3a8a]">
+                {goal.category}
+              </p>
+              <p className="text-gray-800 text-lg">
+                ₹{total} /{" "}
+                <span className="font-semibold text-lg">₹{gLimit}</span>
+              </p>
             </div>
-          );
-        })}
-      </div>
+
+            <div className="w-full bg-gray-300 h-3 rounded-full mt-3 overflow-hidden">
+              <div
+                className={`h-3 transition-all duration-500 ${
+                  total > gLimit
+                    ? "bg-red-600"
+                    : pctDisplay > 70
+                    ? "bg-yellow-500"
+                    : "bg-green-600"
+                }`}
+                style={{ width: `${pctDisplay}%` }}
+              ></div>
+            </div>
+
+            {alertMsg && (
+              <p className="text-base mt-6 text-red-600 font-medium">
+                {alertMsg}
+              </p>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }

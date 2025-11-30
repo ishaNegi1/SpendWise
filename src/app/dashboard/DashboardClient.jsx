@@ -104,75 +104,86 @@ export default function Dashboard() {
   if (loading) return <p className="p-4">Loading...</p>;
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">SpendWise Dashboard</h1>
+    <div className="max-w-5xl mx-auto sm:px-6 py-8 sm:mt-14 mt-5">
+      <div className="flex sm:flex-row flex-col justify-between items-center mb-12">
+        <h1 className="text-3xl mb-5 sm:mb-0 text-center font-bold bg-clip-text text-transparent bg-linear-to-r from-[#1e3a8a] to-[#312e81]">
+          SpendWise Dashboard
+        </h1>
+
         <button
           onClick={handleLogout}
-          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          className="px-5 py-2 rounded-lg text-white font-semibold bg-red-600 hover:bg-red-700 transition cursor-pointer"
         >
           Logout
         </button>
       </div>
 
-      <div className="flex gap-3 mb-4">
-        <select
-          value={month}
-          onChange={(e) => setMonth(e.target.value)}
-          className="border p-2 rounded"
-        >
-          <option value="">All Months</option>
-          {Array.from({ length: 12 }, (_, i) => (
-            <option key={i + 1} value={i + 1}>
-              {new Date(0, i).toLocaleString("en", { month: "long" })}
-            </option>
-          ))}
-        </select>
+      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-5 mb-12">
+        <h2 className="text-xl font-semibold text-[#1e3a8a] mb-8">
+          Filter Transactions
+        </h2>
 
-        <select
-          value={year}
-          onChange={(e) => setYear(e.target.value)}
-          className="border p-2 rounded"
-        >
-          <option value="">All Years</option>
-          {Array.from({ length: 6 }, (_, i) => {
-            const y = new Date().getFullYear() - i;
-            return (
-              <option key={y} value={y}>
-                {y}
+        <div className="flex flex-wrap sm:gap-8 gap-6 justify-center sm:justify-normal">
+          <select
+            value={month}
+            onChange={(e) => setMonth(e.target.value)}
+            className="border p-3 rounded-lg focus:ring-2 focus:ring-[#1e3a8a]"
+          >
+            <option value="">All Months</option>
+            {Array.from({ length: 12 }, (_, i) => (
+              <option key={i + 1} value={i + 1}>
+                {new Date(0, i).toLocaleString("en", { month: "long" })}
               </option>
-            );
-          })}
-        </select>
+            ))}
+          </select>
 
-        <button
-          onClick={() => {
-            const now = new Date();
-            setMonth(String(now.getMonth() + 1));
-            setYear(String(now.getFullYear()));
-          }}
-          className="px-3 py-2 bg-gray-300 rounded"
-        >
-          Reset
-        </button>
+          <select
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            className="border p-3 rounded-lg focus:ring-2 focus:ring-[#1e3a8a]"
+          >
+            <option value="">All Years</option>
+            {Array.from({ length: 6 }, (_, i) => {
+              const y = new Date().getFullYear() - i;
+              return (
+                <option key={y} value={y}>
+                  {y}
+                </option>
+              );
+            })}
+          </select>
 
-        <button
-          onClick={fetchAIInsights}
-          className="px-3 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
-        >
-          🤖 Get Insights From Previous Month
-        </button>
+          <button
+            onClick={() => {
+              const now = new Date();
+              setMonth(String(now.getMonth() + 1));
+              setYear(String(now.getFullYear()));
+            }}
+            className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 transition cursor-pointer"
+          >
+            Reset
+          </button>
 
-        <button
-          onClick={downloadPDF}
-          className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          📄 Download PDF Report
-        </button>
+          <button
+            onClick={fetchAIInsights}
+            className="px-4 py-2 rounded-lg text-white bg-linear-to-r from-[#1e3a8a] to-[#312e81] hover:opacity-90 transition cursor-pointer text-lg mt-5 sm:mt-0"
+          >
+            🤖 Get Insights
+          </button>
+
+          <button
+            onClick={downloadPDF}
+            className="px-4 py-2 rounded-lg text-white bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] hover:opacity-90 transition cursor-pointer text-lg"
+          >
+            📄 Download Report
+          </button>
+        </div>
       </div>
 
       <UserSummary transactions={filteredTransactions} />
+
       <SpendingCharts transactions={filteredTransactions} />
+
       <TransactionList transactions={filteredTransactions} />
 
       <InsightsModal

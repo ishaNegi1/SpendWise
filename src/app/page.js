@@ -22,7 +22,7 @@ export default function Home() {
         </Link>
       </div>
 
-      <section className=" mt-32 sm:px-6 px-2">
+      <section className=" mt-32 sm:px-6 px-1">
         <h2 className="text-3xl font-bold text-[#1e3a8a]">Why SpendWise?</h2>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16 mt-12 max-w-6xl mx-auto">
@@ -100,7 +100,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-32 sm:px-6 px-2">
+      <section className="mt-32 sm:px-6 px-1">
         <h2 className="text-3xl font-bold text-[#1e3a8a]">
           How SpendWise Works
         </h2>
@@ -143,7 +143,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-32 sm:px-6 px-2 text-center">
+      <section className="mt-32 sm:px-6 px-1 text-center">
         <h2 className="text-3xl font-bold text-[#1e3a8a]">What Users Say</h2>
 
         <div className="grid sm:grid-cols-3 gap-12 mt-12 max-w-6xl mx-auto">
