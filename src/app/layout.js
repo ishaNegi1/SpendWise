@@ -18,13 +18,12 @@ export default function RootLayout({ children }) {
           defer
         ></script>
       </head>
-      <body className="bg-gray-50 text-gray-800">
-
-      <Navbar />
+    <body className="bg-linear-to-br from-[#f4f7ff] via-[#eef2ff] to-[#e8ecff]">
+        <Navbar />
 
         <main className="p-8">{children}</main>
 
-        <footer className="bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#312e81] text-gray-200 py-5 mt-10">
+        <footer className="bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] text-gray-200 py-5 mt-24">
           <div className=" grid grid-cols-1 sm:grid-cols-3 mx-8 text-center sm:gap-30 gap-10 px-8">
             <div>
               <h1 className="text-xl font-semibold text-white"> SpendWise</h1>
@@ -40,17 +39,26 @@ export default function RootLayout({ children }) {
               </h2>
               <ul className="space-y-2">
                 <li>
-                  <Link href="/dashboard" className="hover:text-white text-gray-200">
+                  <Link
+                    href="/dashboard"
+                    className="hover:text-white text-gray-200"
+                  >
                     Dashboard
                   </Link>
                 </li>
                 <li>
-                  <Link href="/addTransaction" className="hover:text-white text-gray-200">
+                  <Link
+                    href="/addTransaction"
+                    className="hover:text-white text-gray-200"
+                  >
                     Add Transaction
                   </Link>
                 </li>
                 <li>
-                  <Link href="/setLimit" className="hover:text-white text-gray-200">
+                  <Link
+                    href="/setLimit"
+                    className="hover:text-white text-gray-200"
+                  >
                     Set Spending Limit
                   </Link>
                 </li>
