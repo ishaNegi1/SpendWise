@@ -70,7 +70,7 @@ export default function TransactionForm() {
 
   return (
     <div className="bg-white p-8 rounded-2xl shadow-2xl border border-gray-200">
-      <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-[#1e3a8a] to-[#312e81] mb-6">
+      <h2 className=" inline-block text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] mb-6">
         Add Transaction
       </h2>
 

@@ -5,7 +5,7 @@ export default function TransactionList({ transactions }) {
     return <p className="mt-4 text-lg font-semibold text-center text-gray-700">No transactions yet.</p>;
 
    return (
-    <div className="mt-12 space-y-4">
+    <div className=" space-y-4">
       {transactions.map((t) => (
         <div
           key={t._id}

@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className=" sm:mt-20 mt-16 text-center">
-      <h1 className="text-4xl font-extrabold py-2 bg-clip-text text-transparent bg-linear-to-r from-[#1e3a8a] to-[#312e81]">
+    <div className=" sm:mt-20 mt-10 text-center">
+      <h1 className="text-4xl font-extrabold py-2 bg-clip-text text-transparent bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6]">
         Take Control of Your Money with SpendWise
       </h1>
 
@@ -22,7 +22,7 @@ export default function Home() {
         </Link>
       </div>
 
-      <section className=" mt-32 sm:px-6 px-1">
+      <section className=" mt-28 sm:px-6 px-1">
         <h2 className="text-3xl font-bold text-[#1e3a8a]">Why SpendWise?</h2>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16 mt-12 max-w-6xl mx-auto">
@@ -100,7 +100,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-32 sm:px-6 px-1">
+      <section className="mt-28 sm:px-6 px-1">
         <h2 className="text-3xl font-bold text-[#1e3a8a]">
           How SpendWise Works
         </h2>
@@ -143,7 +143,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-32 sm:px-6 px-1 text-center">
+      <section className="mt-28 sm:px-6 px-1 text-center">
         <h2 className="text-3xl font-bold text-[#1e3a8a]">What Users Say</h2>
 
         <div className="grid sm:grid-cols-3 gap-12 mt-12 max-w-6xl mx-auto">
@@ -200,7 +200,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-32">
+      <section className="mt-28">
         <h2 className="text-3xl font-bold text-[#1e3a8a]">
           Ready to Take Control?
         </h2>

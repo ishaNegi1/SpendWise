@@ -116,12 +116,12 @@ export default function ControlSpending() {
   );
 
   return (
-    <div className="max-w-5xl mx-auto py-8 sm:px-6 sm:mt-14 mt-6">
-      <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-linear-to-r from-[#1e3a8a] to-[#312e81] mb-8 text-center sm:text-left">
+    <div className="max-w-5xl mx-auto py-8 sm:px-6 sm:mt-10 mt-2">
+      <h1 className=" inline-block text-3xl font-bold bg-clip-text text-transparent bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] mb-8">
         Spending Controls
       </h1>
 
-      <div className="grid grid-cols-2 gap-4 sm:gap-12 mb-12">
+      <div className="grid grid-cols-2 gap-4 sm:gap-12 mb-12 bg-white rounded-2xl shadow-2xl border border-gray-200 p-7">
         <select
           value={viewMonth}
           onChange={(e) => setViewMonth(Number(e.target.value))}
@@ -139,7 +139,7 @@ export default function ControlSpending() {
           onChange={(e) => setViewYear(Number(e.target.value))}
           className="border rounded-lg p-3 focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a]"
         >
-          {Array.from({ length: 6 }, (_, i) => {
+          {Array.from({ length: 4 }, (_, i) => {
             const y = now.getFullYear() - i;
             return (
               <option key={y} value={y}>
@@ -191,7 +191,7 @@ export default function ControlSpending() {
       </h2>
 
       {filteredGoals.length === 0 && (
-        <p className="text-gray-800 text-base">
+        <p className="text-gray-700 text-lg font-semibold">
           No controls set for this month.
         </p>
       )}

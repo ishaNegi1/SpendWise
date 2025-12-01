@@ -104,10 +104,10 @@ export default function Dashboard() {
   if (loading) return <p className="p-4">Loading...</p>;
 
   return (
-    <div className="max-w-5xl mx-auto sm:px-6 py-8 sm:mt-14 mt-5">
+    <div className="max-w-5xl mx-auto sm:px-6 py-8 sm:mt-6 mt-2">
       <div className="flex sm:flex-row flex-col justify-between items-center mb-12">
-        <h1 className="text-3xl mb-5 sm:mb-0 text-center font-bold bg-clip-text text-transparent bg-linear-to-r from-[#1e3a8a] to-[#312e81]">
-          SpendWise Dashboard
+        <h1 className="text-4xl mb-7 sm:mb-0 text-center font-bold bg-clip-text text-transparent bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6]">
+          Dashboard
         </h1>
 
         <button
@@ -118,12 +118,38 @@ export default function Dashboard() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-5 mb-12">
-        <h2 className="text-xl font-semibold text-[#1e3a8a] mb-8">
+      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 px-5 py-8 mb-12">
+        <div className="flex flex-wrap sm:gap-8 gap-6 justify-center">
+          <div className=" bg-blue-50 border border-blue-200 text-blue-900 text-sm rounded-xl p-3 leading-relaxed">
+            <strong>Get Insights</strong> compares your{" "}
+            <strong>previous</strong> and <strong>current month</strong>{" "}
+            spendings and provides AI-powered analysis. <br />
+            <strong>Download PDF</strong> generates a detailed report for the{" "}
+            <strong>current month</strong>.
+          </div>
+          <div className=" flex sm:flex-row flex-col sm:gap-10 gap-5">
+            <button
+              onClick={fetchAIInsights}
+              className="px-4 py-2 rounded-lg text-white bg-linear-to-r from-[#1e3a8a] to-[#312e81] hover:opacity-90 transition cursor-pointer text-lg mt-5 sm:mt-0"
+            >
+              🤖 Get Insights
+            </button>
+
+            <button
+              onClick={downloadPDF}
+              className="px-4 py-2 rounded-lg text-white bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] hover:opacity-90 transition cursor-pointer text-lg"
+            >
+              📄 Download Report
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className=" flex flex-col mt-12 bg-white rounded-2xl shadow-2xl border border-gray-200 px-5 py-8">
+        <h2 className="text-xl font-semibold text-[#1e3a8a] mb-6 text-center">
           Filter Transactions
         </h2>
-
-        <div className="flex flex-wrap sm:gap-8 gap-6 justify-center sm:justify-normal">
+        <div className=" flex gap-6 justify-center mb-7">
           <select
             value={month}
             onChange={(e) => setMonth(e.target.value)}
@@ -143,7 +169,7 @@ export default function Dashboard() {
             className="border p-3 rounded-lg focus:ring-2 focus:ring-[#1e3a8a]"
           >
             <option value="">All Years</option>
-            {Array.from({ length: 6 }, (_, i) => {
+            {Array.from({ length: 4 }, (_, i) => {
               const y = new Date().getFullYear() - i;
               return (
                 <option key={y} value={y}>
@@ -152,32 +178,17 @@ export default function Dashboard() {
               );
             })}
           </select>
-
-          <button
-            onClick={() => {
-              const now = new Date();
-              setMonth(String(now.getMonth() + 1));
-              setYear(String(now.getFullYear()));
-            }}
-            className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 transition cursor-pointer"
-          >
-            Reset
-          </button>
-
-          <button
-            onClick={fetchAIInsights}
-            className="px-4 py-2 rounded-lg text-white bg-linear-to-r from-[#1e3a8a] to-[#312e81] hover:opacity-90 transition cursor-pointer text-lg mt-5 sm:mt-0"
-          >
-            🤖 Get Insights
-          </button>
-
-          <button
-            onClick={downloadPDF}
-            className="px-4 py-2 rounded-lg text-white bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] hover:opacity-90 transition cursor-pointer text-lg"
-          >
-            📄 Download Report
-          </button>
         </div>
+        <button
+          onClick={() => {
+            const now = new Date();
+            setMonth(String(now.getMonth() + 1));
+            setYear(String(now.getFullYear()));
+          }}
+          className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 transition cursor-pointer w-1/2 mx-auto"
+        >
+          Reset
+        </button>
       </div>
 
       <UserSummary transactions={filteredTransactions} />
