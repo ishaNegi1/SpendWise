@@ -4,16 +4,16 @@ A smart expense tracking application that automatically categorizes transactions
 <hr>
 
 <b><h2>✅ Key Features</h2></b>
-🤖 AI Auto-Categorization - Uses zero-shot ML model (`bart-large-mnli`) to detect category from text.</br>
-📊 Smart Dashboard - Month + year filters, total summaries, category breakdowns.</br>
-📈 Interactive Charts - Pie chart by category + bar graph by month.</br>
-🧠 AI Insights – Personalized financial insights using `Qwen/Qwen2.5-7B-Instruct`.</br>
-🛡️ Spending Controls – Set monthly category limits with progress bars & alerts.</br>
-📄 PDF Reports – Download monthly spending reports with AI insights included.</br>
-🔐 Auth System - Email/Password + Google Login (JWT + HttpOnly cookie).</br>
-🗄  Secure User Data - User-scoped transactions in MongoDB.</br> 
-💸 Free AI Usage – Uses HuggingFace free-tier models (no OpenAI cost).</br>
-📱 Fully Responsive – Clean, modern UI built with TailwindCSS.
+<b>🤖 AI Auto-Categorization</b> - Uses zero-shot ML model (`bart-large-mnli`) to detect category from text.</br>
+<b>📊 Smart Dashboard</b> - Month + year filters, total summaries, category breakdowns.</br>
+<b>📈 Interactive Charts</b> - Pie chart by category + bar graph by month.</br>
+<b>🧠 AI Insights</b> – Personalized financial insights using `Qwen/Qwen2.5-7B-Instruct`.</br>
+<b>🛡️ Spending Controls</b> – Set monthly category limits with progress bars & alerts.</br>
+<b>📄 PDF Reports</b> – Download monthly spending reports with AI insights included.</br>
+<b>🔐 Auth System</b> - Email/Password + Google Login (JWT + HttpOnly cookie).</br>
+<b>🗄  Secure User Data</b> - User-scoped transactions in MongoDB.</br> 
+<b>💸 Free AI Usage</b> – Uses HuggingFace free-tier models (no OpenAI cost).</br>
+<b>📱 Fully Responsive</b> – Clean, modern UI built with TailwindCSS.
 
 <hr>
 
