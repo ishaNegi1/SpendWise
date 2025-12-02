@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className=" sm:mt-20 mt-10 text-center">
+    <div className=" sm:mt-12 mt-10 text-center">
       <h1 className="text-4xl font-extrabold py-2 bg-clip-text text-transparent bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6]">
         Take Control of Your Money with SpendWise
       </h1>
