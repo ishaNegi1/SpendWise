@@ -60,7 +60,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex justify-center items-center mt-16 sm:px-4">
+    <div className="flex justify-center items-center mt-10 sm:px-4">
       <form
         onSubmit={handleSubmit}
         className="bg-white sm:p-10 p-7 rounded-2xl shadow-2xl space-y-6 border border-gray-200 sm:w-full sm:max-w-md"
@@ -93,7 +93,7 @@ export default function LoginPage() {
 
         <button
           type="submit"
-          className="w-full py-3 rounded-lg text-white font-semibold cursor-pointer
+          className="w-full py-2 rounded-lg text-white font-semibold cursor-pointer
           bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6]
           shadow-md hover:opacity-90 transition"
         >

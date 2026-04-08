@@ -21,9 +21,9 @@ export default function RootLayout({ children }) {
     <body className="bg-linear-to-br from-[#f4f7ff] via-[#eef2ff] to-[#e8ecff]">
         <Navbar />
 
-        <main className="p-8">{children}</main>
+        <main className="p-7">{children}</main>
 
-        <footer className="bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] text-gray-200 py-5 mt-20">
+        <footer className="bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] text-gray-200 py-5 mt-16">
           <div className=" grid grid-cols-1 sm:grid-cols-3 mx-8 text-center sm:gap-30 gap-10 px-8">
             <div>
               <h1 className="text-xl font-semibold text-white"> SpendWise</h1>

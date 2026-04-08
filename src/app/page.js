@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className=" sm:mt-12 mt-10 text-center">
+    <div className=" sm:mt-8 mt-3 text-center">
       <h1 className="text-4xl font-extrabold py-2 bg-clip-text text-transparent bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6]">
         Take Control of Your Money with SpendWise
       </h1>
@@ -22,10 +22,10 @@ export default function Home() {
         </Link>
       </div>
 
-      <section className=" mt-28 sm:px-6 px-1">
+      <section className=" mt-20 sm:mt-28 sm:px-6">
         <h2 className="text-3xl font-bold text-[#1e3a8a]">Why SpendWise?</h2>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16 mt-12 max-w-6xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 sm:gap-y-16 gap-y-9 mt-9 sm:mt-12 max-w-6xl mx-auto">
           <div className="animated-border">
             <div className="p-6 rounded-xl">
               <h3 className="text-xl font-semibold text-[#1e3a8a]">
@@ -100,12 +100,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-28 sm:px-6 px-1">
+      <section className=" mt-20 sm:mt-28 sm:px-6">
         <h2 className="text-3xl font-bold text-[#1e3a8a]">
           How SpendWise Works
         </h2>
 
-        <div className="grid sm:grid-cols-3 gap-12 mt-12 max-w-5xl mx-auto">
+        <div className="grid sm:grid-cols-3 gap-12 mt-7 sm:mt-12 max-w-5xl mx-auto">
           <div className="bg-white text-[#1e3a8a] rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col items-center">
             <div className="w-14 h-14 rounded-full bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] flex items-center justify-center shadow-md">
               <span className="text-2xl font-bold text-white">1</span>
@@ -143,10 +143,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-28 sm:px-6 px-1 text-center">
+      <section className="mt-20 sm:mt-28 sm:px-6 text-center">
         <h2 className="text-3xl font-bold text-[#1e3a8a]">What Users Say</h2>
 
-        <div className="grid sm:grid-cols-3 gap-12 mt-12 max-w-6xl mx-auto">
+        <div className="grid sm:grid-cols-3 gap-12 mt-9 sm:mt-12 max-w-6xl mx-auto">
           <div className="animated-border">
             <div className="rounded-xl flex flex-col items-center bg-white p-6">
               <img
@@ -200,7 +200,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mt-28">
+      <section className="mt-20 sm:mt-28">
         <h2 className="text-3xl font-bold text-[#1e3a8a]">
           Ready to Take Control?
         </h2>
@@ -211,7 +211,7 @@ export default function Home() {
 
         <Link
           href="/signup"
-          className="mt-10 inline-block px-6 py-3 bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] text-white rounded-lg shadow hover:opacity-90 transition"
+          className="mt-7 inline-block px-5 py-2 bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] text-white rounded-lg shadow hover:opacity-90 transition"
         >
           Create Your Account
         </Link>
