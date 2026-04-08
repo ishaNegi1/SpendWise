@@ -18,7 +18,7 @@
     "google-auth-library": "^10.5.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.19.2",
-    "next": "16.0.1",
+    "next": "^16.2.2",
     "pdf-lib": "^1.17.1",
     "react": "19.2.0",
     "react-dom": "19.2.0"
