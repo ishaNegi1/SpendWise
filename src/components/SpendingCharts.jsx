@@ -3,59 +3,150 @@ import { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
 export default function SpendingCharts({ transactions }) {
-  const pieRef = useRef();
-  const barRef = useRef();
+  const pieRef = useRef(null);
+  const barRef = useRef(null);
+  const lineRef = useRef(null);
+  const radarRef = useRef(null);
+
+  const pieCanvas = useRef(null);
+  const barCanvas = useRef(null);
+  const lineCanvas = useRef(null);
+  const radarCanvas = useRef(null);
 
   useEffect(() => {
     if (!transactions.length) return;
 
     const categoryTotals = {};
+    const dailyTotals = {};
+
     transactions.forEach((t) => {
-      categoryTotals[t.category] =
-        (categoryTotals[t.category] || 0) + Number(t.amount);
+      const amount = Number(t.amount);
+
+      categoryTotals[t.category] = (categoryTotals[t.category] || 0) + amount;
+
+      const day = new Date(t.date).toISOString().split("T")[0];
+      dailyTotals[day] = (dailyTotals[day] || 0) + amount;
     });
 
-    const labels = Object.keys(categoryTotals);
-    const values = Object.values(categoryTotals);
+    const sortedDays = Object.keys(dailyTotals).sort(
+      (a, b) => new Date(a) - new Date(b),
+    );
 
-    if (pieRef.current) pieRef.current.destroy();
-    pieRef.current = new Chart(document.getElementById("pieChart"), {
+    let runningTotal = 0;
+    const cumulativeData = sortedDays.map((day) => {
+      runningTotal += dailyTotals[day];
+      return runningTotal;
+    });
+
+    const colorPalette = [
+      "#FF6384",
+      "#36A2EB",
+      "#FFCE56",
+      "#4BC0C0",
+      "#9966FF",
+      "#FF9F40",
+      "#8DD17E",
+    ];
+
+    [pieRef, barRef, lineRef, radarRef].forEach((ref) => {
+      if (ref.current) ref.current.destroy();
+    });
+
+    pieRef.current = new Chart(pieCanvas.current, {
       type: "pie",
-      data: { labels, datasets: [{ data: values }] },
+      data: {
+        labels: Object.keys(categoryTotals),
+        datasets: [
+          {
+            data: Object.values(categoryTotals),
+            backgroundColor: colorPalette,
+          },
+        ],
+      },
     });
 
-    if (barRef.current) barRef.current.destroy();
-    barRef.current = new Chart(document.getElementById("barChart"), {
+    barRef.current = new Chart(barCanvas.current, {
       type: "bar",
-      data: { labels, datasets: [{ data: values }] },
-      options: { scales: { y: { beginAtZero: true } } },
+      data: {
+        labels: sortedDays,
+        datasets: [
+          {
+            label: "Daily Spending",
+            data: sortedDays.map((d) => dailyTotals[d]),
+            backgroundColor: sortedDays.map(
+              (_, i) => colorPalette[i % colorPalette.length],
+            ),
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true },
+        },
+      },
+    });
+
+    lineRef.current = new Chart(lineCanvas.current, {
+      type: "line",
+      data: {
+        labels: sortedDays,
+        datasets: [
+          {
+            label: "Cumulative Spending",
+            data: cumulativeData,
+            borderColor: "#36A2EB",
+            backgroundColor: "rgba(54,162,235,0.2)",
+            tension: 0.3,
+            fill: true,
+          },
+        ],
+      },
+    });
+
+    radarRef.current = new Chart(radarCanvas.current, {
+      type: "radar",
+      data: {
+        labels: Object.keys(categoryTotals),
+        datasets: [
+          {
+            label: "Spending Pattern",
+            data: Object.values(categoryTotals),
+            backgroundColor: "rgba(255,99,132,0.2)",
+            borderColor: "#FF6384",
+          },
+        ],
+      },
     });
   }, [transactions]);
 
   if (!transactions.length) return null;
 
   return (
-    <div className=" mb-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-    
-      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-6">
-        <h3 className="text-xl font-semibold text-center bg-clip-text text-transparent bg-linear-to-r from-[#1e3a8a] to-[#312e81] mb-8">
-          Spending by Category
-        </h3>
+    <div className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <ChartCard title="Spending by Category">
+        <canvas ref={pieCanvas} />
+      </ChartCard>
 
-        <div className="h-72 flex justify-center items-center">
-          <canvas id="pieChart" className="w-full"></canvas>
-        </div>
-      </div>
+      <ChartCard title="Daily Spending">
+        <canvas ref={barCanvas} />
+      </ChartCard>
 
-      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-6">
-        <h3 className="text-xl font-semibold text-center bg-clip-text text-transparent bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] mb-8">
-          Category-wise Spending (Bar Chart)
-        </h3>
+      <ChartCard title="Cumulative Spending Trend">
+        <canvas ref={lineCanvas} />
+      </ChartCard>
 
-        <div className="h-72 flex justify-center items-center">
-          <canvas id="barChart" className="w-full"></canvas>
-        </div>
-      </div>
+      <ChartCard title="Spending Pattern">
+        <canvas ref={radarCanvas} />
+      </ChartCard>
+    </div>
+  );
+}
+
+function ChartCard({ title, children }) {
+  return (
+    <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-6">
+      <h3 className="text-xl font-semibold text-center mb-6">{title}</h3>
+      <div className="h-72 flex justify-center items-center">{children}</div>
     </div>
   );
 }

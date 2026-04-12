@@ -7,6 +7,7 @@ import SpendingCharts from "@/components/SpendingCharts";
 import UserSummary from "@/components/UserSummary";
 import InsightsModal from "@/components/InsightsModal";
 import { useRouter } from "next/navigation";
+import Loader from "@/components/Loader";
 
 export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);
@@ -101,8 +102,8 @@ export default function Dashboard() {
     return matchesMonth && matchesYear;
   });
 
-  if (loading) return <p className="p-4">Loading...</p>;
-
+  if (loading) return <Loader />;
+  
   return (
     <div className="max-w-5xl mx-auto sm:px-6 pb-8 pt-5 sm:mt-4">
       <div className="flex sm:flex-row flex-col justify-between items-center mb-10">

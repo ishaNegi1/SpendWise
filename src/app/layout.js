@@ -1,11 +1,15 @@
 import Link from "next/link";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import { config } from '@fortawesome/fontawesome-svg-core';
 
 export const metadata = {
   title: "SpendWise",
   description: "Web application",
 };
+
+config.autoAddCss = false;
 
 export default function RootLayout({ children }) {
   return (

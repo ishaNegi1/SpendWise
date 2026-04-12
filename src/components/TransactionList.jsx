@@ -2,9 +2,13 @@
 
 export default function TransactionList({ transactions }) {
   if (!transactions || transactions.length === 0)
-    return <p className="mt-4 text-lg font-semibold text-center text-gray-700">No transactions yet.</p>;
+    return (
+      <p className="mt-4 text-lg font-semibold text-center text-gray-700">
+        No transactions yet.
+      </p>
+    );
 
-   return (
+  return (
     <div className=" space-y-6">
       {transactions.map((t) => (
         <div
@@ -16,7 +20,11 @@ export default function TransactionList({ transactions }) {
               {t.description}
             </p>
             <p className="text-base text-gray-800 mt-1">
-              {new Date(t.date).toLocaleDateString()}
+              {new Date(t.date).toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
             </p>
           </div>
 
