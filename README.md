@@ -6,7 +6,7 @@ A smart expense tracking application that automatically categorizes transactions
 <b><h2>✅ Key Features</h2></b>
 <b>🤖 AI Auto-Categorization</b> - Uses zero-shot ML model (`bart-large-mnli`) to detect category from text.</br>
 <b>📊 Smart Dashboard</b> - Month + year filters, total summaries, category breakdowns.</br>
-<b>📈 Interactive Charts</b> - Pie chart by category + bar graph by month.</br>
+<b>📈 Interactive Charts</b> - Pie(spending by category) + bar(daily spending) + line(Cumulative Spending Trend) + radar(Spending Pattern).</br>
 <b>🧠 AI Insights</b> – Personalized financial insights using `Qwen/Qwen2.5-7B-Instruct`.</br>
 <b>🛡️ Spending Controls</b> – Set monthly category limits with progress bars & alerts.</br>
 <b>📄 PDF Reports</b> – Download monthly spending reports with AI insights included.</br>
