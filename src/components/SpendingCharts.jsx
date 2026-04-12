@@ -35,7 +35,7 @@ export default function SpendingCharts({ transactions }) {
   if (!transactions.length) return null;
 
   return (
-    <div className=" mb-20 grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className=" mb-16 grid grid-cols-1 md:grid-cols-2 gap-8">
     
       <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-6">
         <h3 className="text-xl font-semibold text-center bg-clip-text text-transparent bg-linear-to-r from-[#1e3a8a] to-[#312e81] mb-8">

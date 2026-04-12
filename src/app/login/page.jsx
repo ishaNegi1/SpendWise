@@ -27,6 +27,7 @@ export default function LoginPage() {
       }
     } catch (err) {
       setMessage(err.response?.data?.message || "Login failed");
+      setLoading(false);
     }
   };
 

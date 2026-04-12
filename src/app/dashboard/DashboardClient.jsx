@@ -104,9 +104,9 @@ export default function Dashboard() {
   if (loading) return <p className="p-4">Loading...</p>;
 
   return (
-    <div className="max-w-5xl mx-auto sm:px-6 py-8 sm:mt-6 mt-2">
-      <div className="flex sm:flex-row flex-col justify-between items-center mb-12">
-        <h1 className="text-4xl mb-7 sm:mb-0 text-center font-bold bg-clip-text text-transparent bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6]">
+    <div className="max-w-5xl mx-auto sm:px-6 pb-8 pt-5 sm:mt-4">
+      <div className="flex sm:flex-row flex-col justify-between items-center mb-10">
+        <h1 className="text-3xl mb-7 sm:mb-0 text-center font-bold bg-clip-text text-transparent bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6]">
           Dashboard
         </h1>
 

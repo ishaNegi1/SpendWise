@@ -12,7 +12,7 @@ export default function UserSummary({ transactions }) {
     Object.entries(categories).sort((a, b) => b[1] - a[1])[0]?.[0] || "N/A";
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16 mb-20">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16 mb-16">
       <div className="animated-border rounded-2xl">
         <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-6 flex flex-col items-center">
           <div className="w-12 h-12 rounded-full bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] flex items-center justify-center shadow">

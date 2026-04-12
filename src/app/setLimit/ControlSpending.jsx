@@ -116,7 +116,7 @@ export default function ControlSpending() {
   );
 
   return (
-    <div className="max-w-5xl mx-auto py-8 sm:px-6 sm:mt-10 mt-2">
+    <div className="max-w-5xl mx-auto pb-8 pt-5 sm:px-6 sm:mt-3">
       <h1 className=" inline-block text-3xl font-bold bg-clip-text text-transparent bg-linear-to-r from-[#0b1a33] via-[#1e3a8a] to-[#5b21b6] mb-8">
         Spending Controls
       </h1>
@@ -186,7 +186,7 @@ export default function ControlSpending() {
         </button>
       </div>
 
-      <h2 className="text-2xl font-semibold text-[#1e3a8a] mb-4">
+      <h2 className="text-2xl font-semibold text-[#1e3a8a] mb-6">
         Your Limits
       </h2>
 
@@ -207,7 +207,7 @@ export default function ControlSpending() {
         return (
           <div
             key={goal._id}
-            className="bg-white rounded-2xl p-5 shadow-xl border border-gray-200 mb-5"
+            className="bg-white rounded-2xl p-5 shadow-xl border border-gray-200 mb-7"
           >
             <div className="flex justify-between">
               <p className="capitalize text-lg font-semibold text-[#1e3a8a]">

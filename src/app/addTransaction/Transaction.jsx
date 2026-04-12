@@ -4,7 +4,7 @@ import TransactionForm from "@/components/TransactionForm";
 
 export default function Transaction() {
   return (
-    <div className=" sm:max-w-3xl sm:mt-14 mt-10 mx-auto">
+    <div className=" sm:max-w-3xl sm:mt-9 mt-4 mx-auto">
       <TransactionForm />
     </div>
   );
