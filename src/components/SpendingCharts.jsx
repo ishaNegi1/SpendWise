@@ -145,7 +145,7 @@ export default function SpendingCharts({ transactions }) {
 function ChartCard({ title, children }) {
   return (
     <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-6">
-      <h3 className="text-xl font-semibold text-center mb-6">{title}</h3>
+      <h3 className="text-xl font-semibold text-center mb-6 text-[#1e3a8a]">{title}</h3>
       <div className="h-72 flex justify-center items-center">{children}</div>
     </div>
   );

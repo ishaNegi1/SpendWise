@@ -19,7 +19,7 @@ export default function TransactionList({ transactions }) {
             <p className="text-lg font-semibold text-gray-900 capitalize">
               {t.description}
             </p>
-            <p className="text-base text-gray-800 mt-1">
+            <p className="sm:text-base text-sm text-gray-800 mt-1">
               {new Date(t.date).toLocaleDateString("en-GB", {
                 day: "numeric",
                 month: "long",

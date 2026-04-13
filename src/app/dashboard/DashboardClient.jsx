@@ -170,7 +170,7 @@ export default function Dashboard() {
             className="border p-3 rounded-lg focus:ring-2 focus:ring-[#1e3a8a]"
           >
             <option value="">All Years</option>
-            {Array.from({ length: 4 }, (_, i) => {
+            {Array.from({ length: 2 }, (_, i) => {
               const y = new Date().getFullYear() - i;
               return (
                 <option key={y} value={y}>
